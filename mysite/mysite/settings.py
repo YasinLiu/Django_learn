@@ -79,6 +79,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+
+        #  --------------SQL server----------------
+        'ENGINE': 'mssql',
+        'NAME': 'django_db',
+        'USER': 'sa',
+        'PASSWORD': 'xiangsiersheng',
+        'HOST': '127.0.0.1',
+        'PORT': '1433',
+        'OPTIONS':{
+            # 'driver': 'SQL Server Native Client 11.0'
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 
