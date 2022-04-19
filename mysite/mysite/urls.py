@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('polls/', include('polls.urls')),
+    path('login/', views.login),
+    path('register/', views.register),
+    path('logout/', views.logout),
 ]
