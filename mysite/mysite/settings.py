@@ -137,3 +137,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     Path.joinpath(BASE_DIR, 'static'),
 ]
+# Email 模块
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '18842661643@163.com'
+EMAIL_HOST_PASSWORD = 'ZYZQIBLDJLOSTPLV'
