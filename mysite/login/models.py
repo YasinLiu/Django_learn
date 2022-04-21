@@ -1,15 +1,15 @@
 import email
 from django.db import models
 
+
 # Create your models here.
 
 class User(models.Model):
-    
     gender = (
         ('male', '男'),
         ('female', '女'),
     )
-    
+
     name = models.CharField(max_length=128, unique=True)
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True)
@@ -21,7 +21,7 @@ class User(models.Model):
 
     # def __str__(self) -> str:
     #     return super().__str__()
-    
+
     class Meta:
         ordering = ['-c_time']
         verbose_name = '用户'
