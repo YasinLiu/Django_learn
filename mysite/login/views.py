@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from . import forms, models
+import hashlib
+
+
 # Create your views here.
 
 
@@ -10,7 +13,7 @@ def index(request):
 
 
 def login(request):
-    if request.session.get('is_login', None): #不允许重复登录
+    if request.session.get('is_login', None):  # 不允许重复登录
         return redirect('/index/')
     if request.method == "POST":
         login_form = forms.UserForm(request.POST)
@@ -26,7 +29,7 @@ def login(request):
                 message = '用户不存在!'
                 return render(request, 'login/login.html', locals())
 
-            if user.password == password:
+            if user.password == hash_code(password):
                 request.session['is_login'] = True
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.name
@@ -68,7 +71,7 @@ def register(request):
 
                 new_user = models.User()
                 new_user.name = username
-                new_user.password = password1
+                new_user.password = hash_code(password1)
                 new_user.email = email
                 new_user.sex = sex
                 new_user.save()
@@ -84,6 +87,13 @@ def logout(request):
         return redirect('/login/')
     request.session.flush()
     return redirect('/login/')
+
+
+def hash_code(s, salt="mysite"):  # 加点盐
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()
 
 # def index(request):
 #     # return HttpResponse('Hello 白鬓少年')
