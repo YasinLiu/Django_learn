@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
-    'login'
+    'login',
+    'captcha',
 ]
 
 MIDDLEWARE = [
