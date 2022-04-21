@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from . import forms, models
+from django.conf import settings
 import hashlib
+import datetime
 
 
 # Create your views here.
@@ -27,6 +29,9 @@ def login(request):
                 user = models.User.objects.get(name=username)
             except:
                 message = '用户不存在!'
+                return render(request, 'login/login.html', locals())
+            if not user.has_confirmed:
+                message = '该用户还未完成邮箱确认!'
                 return render(request, 'login/login.html', locals())
 
             if user.password == hash_code(password):
@@ -75,6 +80,9 @@ def register(request):
                 new_user.email = email
                 new_user.sex = sex
                 new_user.save()
+
+                code = make_confirm_string(new_user)
+                send_email(email, code)
         else:
             return render(request, 'login/register.html', locals())
     register_form = forms.RegisterForm()
@@ -89,11 +97,71 @@ def logout(request):
     return redirect('/login/')
 
 
+def user_confirm(request):
+    code = request.GET.get('code', None)
+    message = ''
+    try:
+        confirm = models.ConfirmString.objects.get(code=code)
+    except:
+        message = '无效的确认请求'
+        return render(request, 'login/confirm.html', locals())
+
+    c_time = confirm.c_time
+    now = datetime.datetime.now()
+    if now > c_time + datetime.timedelta(settings.CONFIRM_DAYS):
+        confirm.user.delete()
+        message = '您的邮件已经过期！请重新注册!'
+        return render(request, 'login/confirm.html', locals())
+    else:
+        confirm.user.has_confirmed = True
+        confirm.user.save()
+        confirm.delete()
+        message = '邮箱确认成功，请使用账户登录!'
+        return render(request, 'login/confirm.html', locals())
+
+
 def hash_code(s, salt="mysite"):  # 加点盐
     h = hashlib.sha256()
     s += salt
     h.update(s.encode())
     return h.hexdigest()
+
+
+def make_confirm_string(user: models.User) -> str:
+    """ 生成确认码
+
+    Parameters
+    ----------
+    user : models.ConfirmString
+    """
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    code = hash_code(user.name, now)
+    models.ConfirmString.objects.create(code=code, user=user)
+    return code
+
+
+def send_email(email: str, code: str) -> None:
+    """ 向目的邮箱地址发送确认码
+
+    Parameters
+    ----------
+    email 目的邮箱地址
+    code 确认码
+    """
+    from django.core.mail import EmailMultiAlternatives
+
+    subject = f'来至白鬓少年: {settings.EMAIL_HOST} 的注册确认邮件'
+
+    text_content = '''感谢注册django测试网站'''
+
+    html_content = f'''
+                    <p>感谢注册<a href="http://{'127.0.0.1:8000'}/confirm/?code={code}" target=blank>www.liujiangblog.com</a>,\
+                    <p>请点击网站链接完成注册确认！</p>
+                    <p>此链接有效期为{settings.CONFIRM_DAYS}'''
+
+    msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [email])
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
 
 # def index(request):
 #     # return HttpResponse('Hello 白鬓少年')
