@@ -126,7 +126,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,6 +141,6 @@ STATICFILES_DIRS = [
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = '18842661643@163.com'
-EMAIL_HOST_PASSWORD = 'ZYZQIBLDJLOSTPLV'
+EMAIL_HOST_USER = '18842661643@163.com'  # 发送方邮箱
+EMAIL_HOST_PASSWORD = 'ZYZQIBLDJLOSTPLR'  # 三方客户端授权码密码
 CONFIRM_DAYS = 7  # 注册有效期天数
