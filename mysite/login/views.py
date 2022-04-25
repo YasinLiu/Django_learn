@@ -3,9 +3,26 @@ from . import forms, models
 from django.conf import settings
 import hashlib
 import datetime
+# from .shedule_test import apscheuduler_test
+import time
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore, register_job, register_events
 
 
 # Create your views here.
+
+print('django-apscheduler')
+scheduler = BackgroundScheduler()
+scheduler.add_jobstore(DjangoJobStore(), 'default')
+
+
+@register_job(scheduler, 'interval', seconds=5, args=['宇智波·斑'], id='job1')
+def job1(name):
+    print(f'{time.strftime("%Y-%m-%d %H:%M:%S")} : {name} 热舞运行完成！')
+
+
+register_events(scheduler)
+scheduler.start()
 
 
 def index(request):
