@@ -27,3 +27,37 @@ urlpatterns = [
     path('capthca/', include('captcha.urls')),
     path('confirm/', views.user_confirm),
 ]
+
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from apscheduler.executors.pool import ProcessPoolExecutor, ThreadPoolExecutor
+# from django_apscheduler.jobstores import register_job, register_events, DjangoJobStore
+# import time
+#
+# # 实例化调度器
+# scheduler = BackgroundScheduler()
+# # 调度器使用DjangoJobStore()
+# scheduler.add_jobstore(DjangoJobStore(), "default")
+# @register_job(scheduler, 'interval', seconds=3, replace_existing=True)
+# def job1():
+#     # 具体要执行的代码
+#     print('{} 任务运行成功！{}'.format('na', time.strftime("%Y-%m-%d %H:%M:%S")))
+#     print('job2')
+# register_events(scheduler)
+# scheduler.start()
+# print('Scheduler started!')
+
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
+#
+# scheduler = BackgroundScheduler()
+# scheduler.add_jobstore(DjangoJobStore(), "default")
+#
+#
+# # 时间间隔3秒钟打印一次当前的时间
+# @register_job(scheduler, "interval", seconds=3, id='test_job', replace_existing=True)
+# def test_job():
+#     print("我是apscheduler任务")
+# # per-execution monitoring, call register_events on your scheduler
+# register_events(scheduler)
+# scheduler.start()
+# print("Scheduler started!")

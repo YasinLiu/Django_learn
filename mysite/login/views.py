@@ -4,25 +4,41 @@ from django.conf import settings
 import hashlib
 import datetime
 # from .shedule_test import apscheuduler_test
-import time
+# import time
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from django_apscheduler.jobstores import DjangoJobStore, register_job, register_events
+
 from apscheduler.schedulers.background import BackgroundScheduler
-from django_apscheduler.jobstores import DjangoJobStore, register_job, register_events
+from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 
-
-# Create your views here.
-
-print('django-apscheduler')
+# 实例化调度器
 scheduler = BackgroundScheduler()
+# 调度器使用默认的DjangoJobStore()
 scheduler.add_jobstore(DjangoJobStore(), 'default')
 
+# 每天8点半执行这个任务
+@register_job(scheduler, 'cron', id='test', hour=8, minute=30, args=['test'], replace_existing=True)
+def test(s):
+    # 具体要执行的代码
+    pass
 
-@register_job(scheduler, 'interval', seconds=5, args=['宇智波·斑'], id='job1')
-def job1(name):
-    print(f'{time.strftime("%Y-%m-%d %H:%M:%S")} : {name} 热舞运行完成！')
-
-
+# 注册定时任务并开始
 register_events(scheduler)
 scheduler.start()
+
+# # Create your views here.
+#
+# print('django-apscheduler') scheduler = BackgroundScheduler()
+# scheduler.add_jobstore(DjangoJobStore(), 'default')
+#
+#
+# @register_job(scheduler, 'interval', seconds=5, args=['宇智波·斑'], id='job1')
+# def job1(name):
+#     print(f'{time.strftime("%Y-%m-%d %H:%M:%S")} : {name} 热舞运行完成！')
+#
+#
+# register_events(scheduler)
+# scheduler.start()
 
 
 def index(request):

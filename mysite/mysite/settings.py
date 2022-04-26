@@ -145,3 +145,16 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = '18842661643@163.com'
 EMAIL_HOST_PASSWORD = 'ZYZQIBLDJLOSTPLV'
 CONFIRM_DAYS = 7  # 注册有效期天数
+
+# This scheduler config will:
+# - Store jobs in the project database
+# - Execute jobs in threads inside the application process
+SCHEDULER_CONFG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+SCHEDULER_AUTOSTART = True
