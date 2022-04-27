@@ -80,19 +80,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
         #  --------------SQL server----------------
-        'ENGINE': 'mssql',
-        'NAME': 'django_db',
-        'USER': 'sa',
-        'PASSWORD': 'xiangsiersheng',
-        'HOST': '127.0.0.1',
-        'PORT': '1433',
-        'OPTIONS':{
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        # 'ENGINE': 'mssql',
+        # 'NAME': 'django_db',
+        # 'USER': 'sa',
+        # 'PASSWORD': 'xiangsiersheng',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '1433',
+        # 'OPTIONS':{
+        #     'driver': 'ODBC Driver 17 for SQL Server',
+        # },
     }
 }
 
@@ -127,7 +127,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
