@@ -8,9 +8,11 @@ from django.conf import settings
 
 scheduler = BackgroundScheduler(settings.SCHEDULER_CONFG)
 
+
 def job1(name):
     # 具体要执行的代码
     print('{} 任务运行成功！{}'.format(name, time.strftime("%Y-%m-%d %H:%M:%S")))
+
 
 def job2(name):
     # 具体要执行的代码
