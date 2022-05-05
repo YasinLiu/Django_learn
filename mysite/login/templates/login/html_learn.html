@@ -4,15 +4,28 @@
   <head>
     <meta charset="utf-8">
     <title>Table template</title>
-{#    <link href="{%  static 'login/css/html_learn.css' %}" rel="stylesheet" type="text/css">#}
-      <link href="jetbrains://pycharm/navigate/reference?project=mysite&path=login/static/login/css/html_learn.css" rel="stylesheet">
+    <link href="{%  static 'login/css/html_learn.css' %}" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <h1>Table template</h1>
-    <table>
-        <td>Hi, I'm your first cell.</td>
-        <td>I'm you second cell.</td>
-    </table>
+    <h1>Animals table</h1>
 
+    <table>
+    <colgroup>
+        <col style="background-color: cyan">
+        <col style="background-color: chartreuse">
+    </colgroup>
+      <tr>
+        <th>Data 1</th>
+        <th>Data 2</th>
+      </tr>
+      <tr>
+        <td>Calcutta</td>
+        <td>Orange</td>
+      </tr>
+      <tr>
+        <td>Robots</td>
+        <td>Jazz</td>
+      </tr>
+    </table>
   </body>
 </html>
