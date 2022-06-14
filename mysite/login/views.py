@@ -5,7 +5,7 @@ import hashlib
 import datetime
 
 def index_test(request):
-    return render(request, 'login/html_learn.html')
+    return render(request, 'login/number-guessing-game-start.html')
 
 def index(request):
     if not request.session.get('is_login', None):

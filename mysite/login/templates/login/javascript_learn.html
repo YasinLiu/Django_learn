@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <title>使用 JavaScript 的示例</title>
+      <script src="{% static 'login/js/js_learning.js' %}" async></script>
+      <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          // 函数：创建一个新的段落并添加至HTML body底部。
+          function createParagraph() {
+              let para = document.createElement('p');
+              para.textContent = '你点了这个按钮！';
+              document.body.appendChild(para);
+          }
+
+          /*
+            1. 取得页面上所有按钮的引用并将它们置于一个数组中。
+            2. 通过一个循环为每个按钮添加一个点击时间的监听器。
+            当按钮被点击时，调用createParapraph()函数。
+           */
+          const buttons = document.querySelectorAll('button');
+
+          for(let i=0; i<buttons.length; i++) {
+              buttons[i].addEventListener('click', createParagraph);
+          }
+      });
+      </script>
+  </head>
+  <body>
+    <button>点我呀</button>
+    <button>再点我呀</button>
+  </body>
+</html>
