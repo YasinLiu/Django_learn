@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web表单</title>
+    <link rel="stylesheet" href="{% static 'login/css/form_learning.css' %}">
+</head>
+
+<body>
+    <h2>FORM 1</h2>
+    <form action="/my-handling-form-page" method="post">
+       <div>
+         <label for="name">Name:</label>
+         <input type="text" id="name" name="user_name">
+       </div>
+       <div>
+         <label for="mail">E-mail:</label>
+         <input type="email" id="mail" name="user_email">
+       </div>
+       <div>
+         <label for="msg">Message:</label>
+         <textarea id="msg" name="user_message"></textarea>
+       </div>
+       <div>
+           <button type="submit">Send you message</button>
+       </div>
+    </form>
+    <h2>FORM 2</h2>
+    <form>
+      <fieldset>
+        <legend>Fruit juice size</legend>
+        <p>
+          <input type="radio" name="size" id="size_1" value="small">
+          <label for="size_1">Small</label>
+        </p>
+        <p>
+          <input type="radio" name="size" id="size_2" value="medium">
+          <label for="size_2">Medium</label>
+        </p>
+        <p>
+          <input type="radio" name="size" id="size_3" value="large">
+          <label for="size_3">Large</label>
+        </p>
+      </fieldset>
+    </form>
+    <h2>FORM 3</h2>
+    <form>
+      <p>
+        <input type="checkbox" id="taste_1" name="taste_cherry" value="1">
+        <label for="taste_1">I like cherry</label>
+      </p>
+      <p>
+        <input type="checkbox" id="taste_2" name="taste_banana" value="2">
+        <label for="taste_2">I like banana</label>
+      </p>
+    </form>
+    <h2>multiply label</h2>
+    <p>Required fields are followed by <abbr title="required">*</abbr>.</p>
+
+    <!--这样写：-->
+    <div>
+      <label for="username">Name:</label>
+      <input type="text" name="username">
+      <label for="username"><abbr title="required">*</abbr></label>
+    </div>
+
+    <!--但是这样写会更好：-->
+    <div>
+      <label for="username">
+        <span>Name:</span>
+        <input id="username" type="text" name="username">
+        <abbr title="required">*</abbr>
+      </label>
+    </div>
+
+    <!--但最好的可能是这样：-->
+    <div>
+      <label for="username">Name: <abbr title="required">*</abbr></label>
+      <input id="username" type="text" name="username">
+    </div>
+
+</body>
+
+</html>

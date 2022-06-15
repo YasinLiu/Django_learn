@@ -4,8 +4,10 @@ from django.conf import settings
 import hashlib
 import datetime
 
+
 def index_test(request):
-    return render(request, 'login/number-guessing-game-start.html')
+    return render(request, 'login/payment-form.html')
+
 
 def index(request):
     if not request.session.get('is_login', None):
